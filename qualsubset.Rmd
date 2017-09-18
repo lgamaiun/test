@@ -1,0 +1,81 @@
+---
+title: "qualsubset"
+author: "mila"
+date: "17/08/2017"
+output: pdf_document
+---
+```{r, eval = FALSE, message=FALSE}
+
+# clean work space
+rm(list = ls()) 
+library(dplyr)
+library(ggplot2)
+library(Hmisc)
+library(mice)
+```
+
+```{r, eval = FALSE}
+# read the data
+setwd("~/Dropbox/rtraining/")
+qual_result <- read.csv("qual_result.csv", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
+```
+
+```{r, eval = FALSE}
+# creating "evaluation" subset for Nvivo
+
+evaluation <- data.frame(1:dim(qual_result)[1])
+
+evaluation[,"Sensation of soreness of your jaw muscles?"]<-qual_result$sb3_eval2_qual  
+evaluation[,"Sensation of tightness of your jaw muscles?"]<-qual_result$sb4_eval2_qual  
+evaluation[,"Sensation of fatigue in your jaw muscles?"]<-qual_result$sb5_eval2_qual
+evaluation[,"Feeling that your jaw is clenched?"]<-qual_result$sb6_eval2_qual
+evaluation[,"Tension or fatigue in your facial muscles?"]<-qual_result$sb7_eval2_qual
+evaluation[,"Aching of your temples?"]<-qual_result$sb8_eval2_qual
+evaluation[,"Pain in your ear?"]<-qual_result$sb9_eval2_qual
+evaluation[,"Jaw lock or difficulty opening your mouth wide?"]<-qual_result$sb10_eval2_qual
+evaluation[,"Feeling as if you have to move your lower jaw to release it?"]<-qual_result$sb11_eval2_qual
+evaluation[,"Hearing or feeling a click in your jaw joint?"]<-qual_result$sb12_eval2_qual
+evaluation[,"Pain in the jaw joints?"]<-qual_result$sb13_eval2_qual
+evaluation[,"Headache?"]<-qual_result$sb14_eval2_qual
+evaluation[,"Pain in the back of your neck?"]<-qual_result$sb15_eval2_qual
+evaluation[,"Shoulder pain?"]<-qual_result$sb16_eval2_qual
+evaluation[,"Pressure in your teeth?"]<-qual_result$sb17_eval2_qual
+evaluation[,"Sensitive teeth to cold/hot liquid or air?"]<-qual_result$sb18_eval2_qual
+evaluation[,"To what degree have your gums receded?"]<-qual_result$sb19_eval2_qual
+evaluation[,"To what degree are your teeth worn down?"]<-qual_result$sb20_eval2_qual
+evaluation[,"How many cracked teeth do you have?"]<-qual_result$sb21_eval2_qual
+evaluation[,"To what degree have you had or do you require dental work because you grind your teeth during sleep?"]<-qual_result$sb22_eval2_qual
+evaluation[,"How much do you like the appearance of your smile?"]<-qual_result$sb23_eval2_qual
+evaluation[,"How much do you like the appearance of your smile?"]<-qual_result$sb23_eval2_qual
+write.csv(evaluation, "sb_evaluation.csv")
+
+```
+
+```{r, eval = FALSE}
+# creating "impact" subset for Nvivo
+
+impact <- data.frame(1:dim(qual_result)[1])
+
+impact[,"Do you have worries in relation to sleep bruxism?"]<-qual_result$sb27a_qual
+impact[,"Does sleep bruxism influence the way you feel?"]<-qual_result$sb28a_qual
+impact[,"Do you face any limitations because of sleep bruxism?"]<-qual_result$sb29a_qual
+impact[,"Do you feel like sleep bruxism affects your relationships with others?"]<-qual_result$sb30a_qual
+impact[,"Do you avoid sharing a sleeping space with others due to sleep bruxism?"]<-qual_result$sb31a_qual
+impact[,"Does sleep bruxism affect your work life or academic success?"]<-qual_result$sb32a_qual
+impact[,"Does sleep bruxism affect your sleep?"]<-qual_result$sb33a_qual
+impact[,"Has sleep bruxism ever affected the types of foods that you can eat?"]<-qual_result$sb34a_qual
+impact[,"Has sleep bruxism ever affected the way you eat?"]<-qual_result$sb35a_qual
+impact[,"Is your sleep bruxism associated with financial expenditures?"]<-qual_result$sb36a_qual
+impact[,"Are there any other ways in which sleep bruxism affects your life that have not been mentioned thus far?"]<-qual_result$sb37a_qual
+impact[,"Is your sleep bruxism associated with financial expenditures?"]<-qual_result$sb37a_qual
+write.csv(impact, "sb_impact.csv")
+
+
+```
+
+```{r, eval = FALSE}
+# creating "openend" subset for Nvivo
+openend <-data.frame(qual_result[,grep("sb_open",names(qual_result))])
+write.csv(openend, "sb_openend.csv")
+```
+
